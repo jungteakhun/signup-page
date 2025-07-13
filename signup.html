@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 스타일링 패션 회원가입</title>
+  <!-- 구글 폰트 & 아이콘 -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --primary: #ff6f61;
+      --secondary: #333333;
+      --bg-light: #fdfdfd;
+      --accent-light: rgba(255,111,97,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .signup-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 900px;
+      width: 100%;
+      background: var(--bg-light);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .image-panel {
+      background: url('https://source.unsplash.com/random/600x800?fashion,style') center/cover no-repeat;
+    }
+    .form-panel {
+      position: relative;
+      padding: 50px 30px;
+      background: #ffffff;
+    }
+    /* 양옆 데코 쉐이프 */
+    .form-panel::before,
+    .form-panel::after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .form-panel::before {
+      top: -30px;
+      left: -30px;
+    }
+    .form-panel::after {
+      bottom: -40px;
+      right: -40px;
+    }
+    .form-panel h2 {
+      font-size: 2rem;
+      color: var(--secondary);
+      text-align: center;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .form-panel .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 45px 14px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 6px rgba(255,111,97,0.3);
+      outline: none;
+    }
+    .form-group label {
+      position: absolute;
+      top: -8px;
+      left: 12px;
+      background: #ffffff;
+      padding: 0 5px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      z-index: 1;
+    }
+    .form-group .icon {
+      position: absolute;
+      top: 50%; right: 15px;
+      transform: translateY(-50%);
+      color: #aaa;
+      z-index: 1;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .submit-btn:hover {
+      background: #e65b50;
+      transform: translateY(-2px);
+    }
+    .error {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      min-height: 18px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .signup-wrapper { grid-template-columns: 1fr; }
+      .image-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-wrapper">
+    <div class="image-panel"></div>
+    <div class="form-panel">
+      <h2><i class="fas fa-tshirt"></i> AI 스타일링 패션</h2>
+      <p class="subtitle">당신만의 패션 여정을 지금 시작하세요!</p>
+      <form id="signup-form" autocomplete="off">
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <input type="email" id="email" placeholder="example@domain.com" required />
+          <i class="fas fa-envelope icon"></i>
+        </div>
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <input type="password" id="password" placeholder="8자 이상" required />
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <div class="form-group">
+          <label for="confirm">비밀번호 확인</label>
+          <input type="password" id="confirm" placeholder="비밀번호 재입력" required />
+          <i class="fas fa-lock icon"></i>
+        </div>
+        <p class="error" id="error-message"></p>
+        <button class="submit-btn" type="submit">가입하기</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('signup-form');
+    const errorMessage = document.getElementById('error-message');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      if (password !== confirm) {
+        errorMessage.textContent = "비밀번호가 일치하지 않습니다.";
+        return;
+      } else {
+        errorMessage.textContent = "";
+      }
+      try {
+        const response = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert('회원가입 성공!');
+          window.location.href = '/login.html';
+        } else {
+          errorMessage.textContent = '오류: ' + result.message;
+        }
+      } catch (err) {
+        errorMessage.textContent = '서버에 연결할 수 없습니다.';
+      }
+    });
+  </script>
+</body>
+</html>
+
