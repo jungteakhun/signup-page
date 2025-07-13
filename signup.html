@@ -4,144 +4,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 스타일링 패션 회원가입</title>
-  <!-- 구글 폰트 & 아이콘 -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --primary: #ff6f61;
-      --secondary: #333333;
-      --bg-light: #fdfdfd;
-      --accent-light: rgba(255,111,97,0.1);
+      --secondary: #222;
+      --bg-light: #fff;
+      --accent-light: rgba(255, 111, 97, 0.15);
+      --glass: rgba(255,255,255,0.6);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #fafafa;
+      background: linear-gradient(135deg, #ffe8e8, #fff5f0);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
+      padding: 40px 20px;
     }
+
     .signup-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      max-width: 900px;
+      max-width: 1000px;
       width: 100%;
       background: var(--bg-light);
-      border-radius: 16px;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in;
     }
+
     .image-panel {
-      background: url('https://source.unsplash.com/random/600x800?fashion,style') center/cover no-repeat;
-    }
-    .form-panel {
+      background: url('https://source.unsplash.com/800x1000/?fashion,style') center/cover no-repeat;
       position: relative;
-      padding: 50px 30px;
-      background: #ffffff;
     }
-    /* 양옆 데코 쉐이프 */
-    .form-panel::before,
-    .form-panel::after {
+
+    .image-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(255,111,97,0.2));
+      backdrop-filter: blur(3px);
+    }
+
+    .form-panel {
+      padding: 60px 40px;
+      background: var(--bg-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-panel::before {
       content: '';
       position: absolute;
       width: 120px;
       height: 120px;
       background: var(--accent-light);
       border-radius: 50%;
+      top: -40px;
+      left: -40px;
       z-index: 0;
     }
-    .form-panel::before {
-      top: -30px;
-      left: -30px;
-    }
-    .form-panel::after {
-      bottom: -40px;
-      right: -40px;
-    }
+
     .form-panel h2 {
-      font-size: 2rem;
+      font-size: 2.4rem;
       color: var(--secondary);
       text-align: center;
-      margin-bottom: 8px;
-      position: relative;
+      margin-bottom: 10px;
       z-index: 1;
+      position: relative;
     }
+
     .form-panel .subtitle {
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #666;
-      margin-bottom: 30px;
-      position: relative;
+      margin-bottom: 35px;
       z-index: 1;
+      position: relative;
     }
+
     .form-group {
+      margin-bottom: 22px;
       position: relative;
-      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      position: absolute;
+      top: -9px;
+      left: 14px;
+      background: #fff;
+      padding: 0 6px;
       z-index: 1;
     }
+
     .form-group input {
       width: 100%;
-      padding: 14px 45px 14px 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 15px 48px 15px 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
       font-size: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      transition: all 0.3s ease;
     }
+
     .form-group input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 6px rgba(255,111,97,0.3);
       outline: none;
     }
-    .form-group label {
-      position: absolute;
-      top: -8px;
-      left: 12px;
-      background: #ffffff;
-      padding: 0 5px;
-      font-size: 0.85rem;
-      color: var(--primary);
-      font-weight: 600;
-      z-index: 1;
-    }
+
     .form-group .icon {
       position: absolute;
-      top: 50%; right: 15px;
+      top: 50%;
+      right: 15px;
       transform: translateY(-50%);
       color: #aaa;
-      z-index: 1;
     }
+
     .submit-btn {
       width: 100%;
       padding: 16px;
       background: var(--primary);
       color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
       border: none;
-      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-      position: relative;
-      z-index: 1;
+      transition: all 0.3s ease;
     }
+
     .submit-btn:hover {
       background: #e65b50;
       transform: translateY(-2px);
     }
+
     .error {
       color: #e74c3c;
       font-size: 0.85rem;
-      min-height: 18px;
+      min-height: 20px;
       margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
     }
+
     @media (max-width: 768px) {
-      .signup-wrapper { grid-template-columns: 1fr; }
-      .image-panel { display: none; }
+      .signup-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .image-panel {
+        display: none;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -150,7 +174,7 @@
     <div class="image-panel"></div>
     <div class="form-panel">
       <h2><i class="fas fa-tshirt"></i> AI 스타일링 패션</h2>
-      <p class="subtitle">당신만의 패션 여정을 지금 시작하세요!</p>
+      <p class="subtitle">나만의 스타일을 추천받고 싶다면 지금 가입하세요!</p>
       <form id="signup-form" autocomplete="off">
         <div class="form-group">
           <label for="email">이메일</label>
@@ -172,6 +196,7 @@
       </form>
     </div>
   </div>
+
   <script>
     const form = document.getElementById('signup-form');
     const errorMessage = document.getElementById('error-message');
@@ -186,24 +211,8 @@
       } else {
         errorMessage.textContent = "";
       }
-      try {
-        const response = await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const result = await response.json();
-        if (response.ok) {
-          alert('회원가입 성공!');
-          window.location.href = '/login.html';
-        } else {
-          errorMessage.textContent = '오류: ' + result.message;
-        }
-      } catch (err) {
-        errorMessage.textContent = '서버에 연결할 수 없습니다.';
-      }
+      alert("입력 완료! (백엔드 서버는 연결되어 있지 않습니다)");
     });
   </script>
 </body>
 </html>
-
