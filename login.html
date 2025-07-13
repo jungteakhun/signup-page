@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #ffffffcc;
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #6c63ff;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #6c63ff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #5548d9;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>로그인</h2>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input type="email" id="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" required />
+      </div>
+
+      <p class="error" id="error-message"></p>
+
+      <button class="submit-btn" type="submit">로그인</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const errorMessage = document.getElementById('error-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert("로그인 성공!");
+          window.location.href = "/home.html"; // 로그인 성공 후 이동할 페이지
+        } else {
+          errorMessage.textContent = "오류: " + result.message;
+        }
+      } catch (err) {
+        errorMessage.textContent = "서버에 연결할 수 없습니다.";
+      }
+    });
+  </script>
+</body>
+</html>
