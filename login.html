@@ -2,7 +2,10 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>로그인</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 패션 로그인</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -11,90 +14,111 @@
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(120deg, #f6d365, #fda085);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .login-container {
-      background-color: #ffffffcc;
-      backdrop-filter: blur(10px);
-      padding: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
       width: 100%;
       max-width: 400px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      color: #333;
+      position: relative;
     }
 
     .login-container h2 {
       text-align: center;
-      margin-bottom: 25px;
-      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #fff;
     }
 
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      position: relative;
     }
 
     .form-group label {
-      display: block;
-      margin-bottom: 6px;
       font-weight: 600;
-      color: #333;
+      font-size: 0.9rem;
+      color: #fff;
     }
 
     .form-group input {
       width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      transition: border-color 0.3s;
+      padding: 12px 40px 12px 14px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
     }
 
-    .form-group input:focus {
-      border-color: #6c63ff;
-      outline: none;
+    .form-group .icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: #888;
     }
 
     .submit-btn {
       width: 100%;
-      padding: 12px;
-      background-color: #6c63ff;
-      color: white;
-      font-weight: bold;
+      padding: 14px;
+      background: #ff6f61;
+      color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background 0.3s ease, transform 0.2s;
     }
 
     .submit-btn:hover {
-      background-color: #5548d9;
+      background: #e0554b;
+      transform: translateY(-2px);
     }
 
     .error {
-      color: red;
-      font-size: 14px;
-      margin-top: -10px;
-      margin-bottom: 10px;
+      color: #ffe2e2;
+      background: rgba(255, 0, 0, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>로그인</h2>
+    <h2><i class="fas fa-user-circle"></i> 로그인</h2>
     <form id="login-form">
       <div class="form-group">
         <label for="email">이메일</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email" required placeholder="email@example.com" />
+        <i class="fas fa-envelope icon"></i>
       </div>
 
       <div class="form-group">
         <label for="password">비밀번호</label>
-        <input type="password" id="password" required />
+        <input type="password" id="password" required placeholder="비밀번호" />
+        <i class="fas fa-lock icon"></i>
       </div>
 
       <p class="error" id="error-message"></p>
@@ -109,7 +133,6 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
@@ -123,7 +146,7 @@
         const result = await response.json();
         if (response.ok) {
           alert("로그인 성공!");
-          window.location.href = "/home.html"; // 로그인 성공 후 이동할 페이지
+          window.location.href = "/home.html";
         } else {
           errorMessage.textContent = "오류: " + result.message;
         }
