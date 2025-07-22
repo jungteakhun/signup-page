@@ -197,22 +197,25 @@
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('signup-form');
-    const errorMessage = document.getElementById('error-message');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const confirm = document.getElementById('confirm').value;
-      if (password !== confirm) {
-        errorMessage.textContent = "비밀번호가 일치하지 않습니다.";
-        return;
-      } else {
-        errorMessage.textContent = "";
-      }
-      alert("입력 완료! (백엔드 서버는 연결되어 있지 않습니다)");
-    });
-  </script>
-</body>
-</html>
+<script>
+  const form = document.getElementById('signup-form');
+  const errorMessage = document.getElementById('error-message');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirm = document.getElementById('confirm').value;
+
+    if (password !== confirm) {
+      errorMessage.textContent = "비밀번호가 일치하지 않습니다.";
+      return;
+    }
+
+    // ✅ 로그인 페이지로 이동
+    alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.");
+    window.location.href = "https://jungteakhun.github.io/signup-page/login.html";
+  });
+</script>
+
