@@ -128,32 +128,25 @@
   </div>
 
   <script>
-    const form = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
+   <script>
+  const form = document.getElementById('login-form');
+  const errorMessage = document.getElementById('error-message');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        });
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
 
-        const result = await response.json();
-        if (response.ok) {
-          alert("로그인 성공!");
-          window.location.href = "/home.html";
-        } else {
-          errorMessage.textContent = "오류: " + result.message;
-        }
-      } catch (err) {
-        errorMessage.textContent = "서버에 연결할 수 없습니다.";
-      }
-    });
+    if (email && password) {
+      alert("로그인 성공! (실제 인증은 없음)");
+      window.location.href = "https://jungteakhun.github.io/signup-page/home.html"; // 나중에 만들 페이지
+    } else {
+      errorMessage.textContent = "이메일과 비밀번호를 입력하세요.";
+    }
+  });
+</script>
+
   </script>
 </body>
 </html>
