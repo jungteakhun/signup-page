@@ -128,7 +128,7 @@
   </div>
 
   <script>
-  <script>
+   <script>
   const form = document.getElementById('login-form');
   const errorMessage = document.getElementById('error-message');
 
@@ -139,15 +139,13 @@
     const password = document.getElementById('password').value;
 
     if (email && password) {
-      alert("로그인 성공!");
-      // ✅ 로그인 성공 시 홈 화면으로 이동
-      window.location.href = "https://jungteakhun.github.io/signup-page/home.html";
+      alert("로그인 성공! (실제 인증은 없음)");
+      window.location.href = "https://jungteakhun.github.io/signup-page/home.html"; // 나중에 만들 페이지
     } else {
       errorMessage.textContent = "이메일과 비밀번호를 입력하세요.";
     }
   });
 </script>
-
 
   </script>
 </body>
